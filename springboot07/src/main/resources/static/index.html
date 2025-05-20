@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户管理系统</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: inline-block;
+            width: 100px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .btn {
+            padding: 5px 10px;
+            margin: 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>用户管理系统</h1>
+    
+    <div id="userForm">
+        <h2>添加/编辑用户</h2>
+        <div class="form-group">
+            <label for="username">用户名：</label>
+            <input type="text" id="username" required>
+        </div>
+        <div class="form-group">
+            <label for="email">邮箱：</label>
+            <input type="email" id="email" required>
+        </div>
+        <div class="form-group">
+            <label for="age">年龄：</label>
+            <input type="number" id="age" required>
+        </div>
+        <div class="form-group">
+            <label for="address">地址：</label>
+            <input type="text" id="address" required>
+        </div>
+        <button onclick="saveUser()" class="btn">保存</button>
+    </div>
+
+    <table id="userTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>用户名</th>
+                <th>邮箱</th>
+                <th>年龄</th>
+                <th>地址</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="userList"></tbody>
+    </table>
+
+    <script>
+        let editingId = null;
+        const baseUrl = 'http://localhost:8080/api/users';
+
+        // 页面加载时获取用户列表
+        loadUsers();
+
+        function loadUsers() {
+            axios.get(baseUrl)
+                .then(response => {
+                    const users = response.data.data;
+                    const userList = document.getElementById('userList');
+                    userList.innerHTML = '';
+                    users.forEach(user => {
+                        userList.innerHTML += `
+                            <tr>
+                                <td>${user.id}</td>
+                                <td>${user.username}</td>
+                                <td>${user.email}</td>
+                                <td>${user.age}</td>
+                                <td>${user.address}</td>
+                                <td>
+                                    <button onclick='editUser(${JSON.stringify(user)})' class="btn">编辑</button>
+                                    <button onclick="deleteUser(${user.id})" class="btn">删除</button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                })
+                .catch(error => alert('加载用户列表失败：' + error.message));
+        }
+
+        //创建用户
+        function saveUser() {
+            const user = {
+                username: document.getElementById('username').value,
+                email: document.getElementById('email').value,
+                age: parseInt(document.getElementById('age').value),
+                address: document.getElementById('address').value
+            };
+            if (editingId) {
+                user.id = editingId;
+            }
+            const method = editingId ? 'put' : 'post';
+            const url = editingId ? `${baseUrl}/${editingId}` : baseUrl;
+            axios[method](url, user)
+                .then(response => {
+                    loadUsers();
+                    resetForm();
+                    alert(editingId ? '用户信息更新成功！' : '用户创建成功！');
+                })
+                .catch(error => alert(editingId ? '更新用户信息失败：' : '创建用户失败：' + error.message));
+        }
+
+        function editUser(user) {
+            editingId = user.id;
+            document.getElementById('username').value = user.username;
+            document.getElementById('email').value = user.email;
+            document.getElementById('age').value = user.age;
+            document.getElementById('address').value = user.address;
+        }
+
+        //删除用户
+        function deleteUser(id) {
+            if (confirm('确定要删除这个用户吗？')) {
+                axios.delete(`${baseUrl}/${id}`)
+                    .then(response => {
+                        loadUsers();
+                        alert('用户删除成功！');
+                    })
+                    .catch(error => alert('删除用户失败：' + error.message));
+            }
+        }
+
+        function resetForm() {
+            editingId = null;
+            document.getElementById('username').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('age').value = '';
+            document.getElementById('address').value = '';
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: layout(~{::title}, ~{::content})}">
+
+<head>
+  <title>课程管理 - 教务管理系统</title>
+</head>
+
+<body>
+  <div th:fragment="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">课程列表</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-primary" onclick="openAddModal()">
+                  添加课程
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>课程编号</th>
+                    <th>课程名称</th>
+                    <th>学分</th>
+                    <th>授课教师</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="course : ${courses}">
+                    <td th:text="${course.courseNo}"></td>
+                    <td th:text="${course.name}"></td>
+                    <td th:text="${course.credit}"></td>
+                    <td th:text="${course.teacher?.name}"></td>
+                    <td>
+                      <button class="btn btn-sm btn-info" th:onclick="'editCourse(' + ${course.id} + ')'">编辑</button>
+                      <button class="btn btn-sm btn-danger"
+                        th:onclick="'deleteCourse(' + ${course.id} + ')'">删除</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 添加/编辑课程模态框 -->
+    <div class="modal fade" id="courseModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle">添加课程</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="courseForm">
+              <input type="hidden" id="id" name="id">
+              <div class="mb-3">
+                <label for="courseNo" class="form-label">课程编号</label>
+                <input type="text" class="form-control" id="courseNo" name="courseNo" required>
+              </div>
+              <div class="mb-3">
+                <label for="name" class="form-label">课程名称</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+              </div>
+              <div class="mb-3">
+                <label for="credit" class="form-label">学分</label>
+                <input type="number" class="form-control" id="credit" name="credit" required min="1" max="10">
+              </div>
+              <div class="mb-3">
+                <label for="teacherId" class="form-label">授课教师</label>
+                <select class="form-select" id="teacherId" name="teacherId" required>
+                  <option value="">请选择教师</option>
+                  <option th:each="teacher : ${teachers}" th:value="${teacher.id}" th:text="${teacher.name}"></option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary" onclick="saveCourse()">保存</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let isEdit = false;
+      let courseModal = null;
+
+      document.addEventListener('DOMContentLoaded', function () {
+        courseModal = new bootstrap.Modal(document.getElementById('courseModal'), {
+          backdrop: 'static',
+          keyboard: false
+        });
+      });
+
+      function openAddModal() {
+        isEdit = false;
+        document.getElementById('modalTitle').textContent = '添加课程';
+        document.getElementById('courseForm').reset();
+        courseModal.show();
+      }
+
+      function editCourse(id) {
+        isEdit = true;
+        document.getElementById('modalTitle').textContent = '编辑课程';
+
+        $.ajax({
+          url: '/course/get/' + id,
+          type: 'GET',
+          success: function (result) {
+            if (result.code === 200) {
+              const course = result.data;
+              document.getElementById('id').value = course.id;
+              document.getElementById('courseNo').value = course.courseNo;
+              document.getElementById('name').value = course.name;
+              document.getElementById('credit').value = course.credit;
+              document.getElementById('teacherId').value = course.teacherId;
+              courseModal.show();
+            }
+          }
+        });
+      }
+
+      function saveCourse() {
+        const form = document.getElementById('courseForm');
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        const formData = {
+          id: document.getElementById('id').value ? parseInt(document.getElementById('id').value) : null,
+          courseNo: document.getElementById('courseNo').value,
+          name: document.getElementById('name').value,
+          credit: parseInt(document.getElementById('credit').value),
+          teacherId: parseInt(document.getElementById('teacherId').value)
+        };
+
+        $.ajax({
+          url: isEdit ? '/course/update' : '/course/add',
+          type: 'POST',
+          data: JSON.stringify(formData),
+          success: function (result) {
+            if (result.code === 200) {
+              courseModal.hide();
+              location.reload();
+            }
+          }
+        });
+      }
+
+      function deleteCourse(id) {
+        confirmDelete('删除课程', '确定要删除这个课程吗？该操作不可恢复！').then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              url: '/course/delete/' + id,
+              type: 'POST',
+              success: function (result) {
+                if (result.code === 200) {
+                  Swal.fire({
+                    icon: 'success',
+                    title: '删除成功',
+                    text: '课程信息已被删除',
+                    showConfirmButton: false,
+                    timer: 1500
+                  }).then(() => {
+                    location.reload();
+                  });
+                }
+              }
+            });
+          }
+        });
+      }
+    </script>
+  </div>
+</body>
+
+</html>

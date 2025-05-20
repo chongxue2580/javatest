@@ -1,0 +1,218 @@
+/* 全局样式 */
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #17a2b8;
+  --light-color: #f8f9fa;
+  --dark-color: #343a40;
+}
+
+/* 导航栏样式 */
+.navbar {
+  padding: 0.5rem 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+}
+
+.navbar-brand {
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+}
+
+.navbar-brand i {
+  margin-right: 0.5rem;
+}
+
+.navbar .nav-link {
+  padding: 0.5rem 1rem;
+  color: rgba(255, 255, 255, .85) !important;
+  transition: all 0.3s ease;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  color: #fff !important;
+  background-color: rgba(255, 255, 255, .1);
+}
+
+.navbar .nav-link i {
+  margin-right: 0.5rem;
+}
+
+/* 侧边栏样式 */
+.sidebar {
+  position: fixed;
+  top: 56px;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  padding: 0;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+.sidebar .nav-link {
+  font-weight: 500;
+  color: var(--dark-color);
+  padding: 0.75rem 1rem;
+  border-radius: 0.25rem;
+  margin: 0.25rem 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.sidebar .nav-link:hover {
+  color: var(--primary-color);
+  background-color: rgba(0, 123, 255, 0.1);
+}
+
+.sidebar .nav-link.active {
+  color: var(--primary-color);
+  background-color: rgba(0, 123, 255, 0.1);
+}
+
+.sidebar .nav-link i {
+  margin-right: 0.5rem;
+  width: 1.25em;
+  text-align: center;
+}
+
+.sidebar .position-sticky {
+  height: calc(100vh - 56px);
+  overflow-y: auto;
+}
+
+/* 主内容区样式 */
+.main-content {
+  padding: 2rem 1rem;
+  margin-top: 56px;
+  min-height: calc(100vh - 56px);
+  background-color: #f8f9fa;
+}
+
+/* 卡片样式 */
+.card {
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  margin-bottom: 1.5rem;
+  background-color: #fff;
+}
+
+.card-header {
+  background-color: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  padding: 1.25rem;
+}
+
+/* 表格样式 */
+.table {
+  margin-bottom: 0;
+}
+
+.table th {
+  background-color: #f8f9fa;
+  border-top: none;
+  font-weight: 600;
+  padding: 1rem;
+}
+
+.table td {
+  padding: 1rem;
+  vertical-align: middle;
+}
+
+/* 按钮样式 */
+.btn {
+  border-radius: 0.25rem;
+  padding: 0.375rem 1rem;
+  font-weight: 500;
+}
+
+.btn-group {
+  margin-bottom: 0;
+}
+
+.btn i {
+  margin-right: 0.5rem;
+}
+
+/* 表单样式 */
+.form-floating {
+  margin-bottom: 1rem;
+}
+
+.form-floating>.form-control {
+  padding: 1rem 0.75rem;
+}
+
+.form-floating>label {
+  padding: 1rem 0.75rem;
+}
+
+/* 成绩标签样式 */
+.grade-badge {
+  padding: 0.5em 1em;
+  font-weight: 500;
+  border-radius: 0.25rem;
+}
+
+.grade-A {
+  background-color: var(--success-color);
+  color: #fff;
+}
+
+.grade-B {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.grade-C {
+  background-color: var(--warning-color);
+  color: #212529;
+}
+
+.grade-D {
+  background-color: var(--danger-color);
+  color: #fff;
+}
+
+/* 模态框样式 */
+.modal-content {
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.modal-footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+/* 响应式布局 */
+@media (max-width: 768px) {
+  .sidebar {
+    position: static;
+    height: auto;
+    padding: 1rem;
+  }
+
+  .sidebar .position-sticky {
+    height: auto;
+    overflow-y: visible;
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding: 1rem;
+  }
+}

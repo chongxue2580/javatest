@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>错误页面</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-header bg-danger text-white">
+                        <h2 class="text-center mb-0">出错了！</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <p class="lead" th:text="${error}">发生错误</p>
+                            <p th:text="${message}">错误信息</p>
+                            <p>
+                                <a href="/" class="btn btn-primary">返回首页</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

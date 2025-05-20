@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.CourseMapper">
+    <resultMap id="BaseResultMap" type="com.example.entity.Course">
+        <id column="id" property="id"/>
+        <result column="course_no" property="courseNo"/>
+        <result column="name" property="name"/>
+        <result column="teacher_id" property="teacherId"/>
+        <result column="credit" property="credit"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <association property="teacher" javaType="com.example.entity.Teacher">
+            <id column="teacher_id" property="id"/>
+            <result column="teacher_name" property="name"/>
+            <result column="teacher_title" property="title"/>
+        </association>
+    </resultMap>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT 
+            c.*,
+            t.name as teacher_name,
+            t.title as teacher_title
+        FROM course c
+        LEFT JOIN teacher t ON c.teacher_id = t.id
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap">
+        SELECT 
+            c.*,
+            t.name as teacher_name,
+            t.title as teacher_title
+        FROM course c
+        LEFT JOIN teacher t ON c.teacher_id = t.id
+        WHERE c.id = #{id}
+    </select>
+
+    <select id="findByCourseNo" resultMap="BaseResultMap">
+        SELECT 
+            c.*,
+            t.name as teacher_name,
+            t.title as teacher_title
+        FROM course c
+        LEFT JOIN teacher t ON c.teacher_id = t.id
+        WHERE c.course_no = #{courseNo}
+    </select>
+
+    <insert id="insert" parameterType="com.example.entity.Course" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO course (course_no, name, teacher_id, credit)
+        VALUES (#{courseNo}, #{name}, #{teacherId}, #{credit})
+    </insert>
+
+    <update id="update" parameterType="com.example.entity.Course">
+        UPDATE course
+        SET course_no = #{courseNo},
+            name = #{name},
+            teacher_id = #{teacherId},
+            credit = #{credit}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM course WHERE id = #{id}
+    </delete>
+</mapper> 

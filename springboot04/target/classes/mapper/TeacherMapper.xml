@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.TeacherMapper">
+    <resultMap id="BaseResultMap" type="com.example.entity.Teacher">
+        <id column="id" property="id"/>
+        <result column="teacher_no" property="teacherNo"/>
+        <result column="name" property="name"/>
+        <result column="title" property="title"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT * FROM teacher
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap">
+        SELECT * FROM teacher WHERE id = #{id}
+    </select>
+
+    <select id="findByTeacherNo" resultMap="BaseResultMap">
+        SELECT * FROM teacher WHERE teacher_no = #{teacherNo}
+    </select>
+
+    <insert id="insert" parameterType="com.example.entity.Teacher" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO teacher (teacher_no, name, title)
+        VALUES (#{teacherNo}, #{name}, #{title})
+    </insert>
+
+    <update id="update" parameterType="com.example.entity.Teacher">
+        UPDATE teacher
+        SET teacher_no = #{teacherNo},
+            name = #{name},
+            title = #{title}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM teacher WHERE id = #{id}
+    </delete>
+</mapper> 

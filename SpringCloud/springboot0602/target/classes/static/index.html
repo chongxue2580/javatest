@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>用户管理系统</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <!-- 头部 -->
+    <header class="header">
+      <h1><i class="fas fa-users"></i> 用户管理系统</h1>
+    </header>
+
+    <!-- 提示消息 -->
+    <div id="alertSuccess" class="alert alert-success"></div>
+    <div id="alertError" class="alert alert-error"></div>
+
+    <!-- 用户表单 -->
+    <div class="form-container">
+      <h2><i class="fas fa-user-plus"></i> 添加/编辑用户</h2>
+      <form id="userForm">
+        <input type="hidden" id="userId">
+        <div class="form-group">
+          <label for="username">用户名</label>
+          <input type="text" id="username" class="form-control" required pattern="^[a-zA-Z0-9_]{3,20}$"
+            title="用户名长度3-20位，只能包含字母、数字和下划线">
+        </div>
+        <div class="form-group">
+          <label for="password">密码</label>
+          <input type="password" id="password" class="form-control" required
+            pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$" title="密码长度6-20位，必须包含字母和数字">
+        </div>
+        <div class="form-group">
+          <label for="email">邮箱</label>
+          <input type="email" id="email" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> 保存
+          </button>
+          <button type="reset" class="btn btn-secondary">
+            <i class="fas fa-undo"></i> 重置
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- 用户列表 -->
+    <div class="table-container">
+      <h2><i class="fas fa-list"></i> 用户列表</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>用户名</th>
+            <th>邮箱</th>
+            <th>创建时间</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="userTableBody">
+          <!-- 用户数据将通过JavaScript动态添加 -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 删除确认模态框 -->
+  <div id="deleteModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2><i class="fas fa-exclamation-triangle"></i> 确认删除</h2>
+      <p>确定要删除这个用户吗？此操作不可恢复。</p>
+      <div class="form-group">
+        <button id="confirmDelete" class="btn btn-danger">
+          <i class="fas fa-trash"></i> 确认删除
+        </button>
+        <button class="btn btn-secondary close-modal">
+          <i class="fas fa-times"></i> 取消
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+
+</html>

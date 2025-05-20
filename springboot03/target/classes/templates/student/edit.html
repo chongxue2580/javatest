@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${student.id} ? '编辑学生信息' : '添加学生'">编辑学生信息</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+  <div class="container">
+    <h1 th:text="${student.id} ? '编辑学生信息' : '添加学生'">编辑学生信息</h1>
+
+    <div class="form-container">
+      <form th:action="@{/student/save}" th:object="${student}" method="post">
+        <div class="form-group">
+          <label for="id">学号</label>
+          <input type="text" class="form-control" id="id" th:field="*{id}" required th:readonly="${student.id != null}"
+            placeholder="请输入学号">
+        </div>
+
+        <div class="form-group">
+          <label for="name">姓名</label>
+          <input type="text" class="form-control" id="name" th:field="*{name}" required placeholder="请输入姓名">
+        </div>
+
+        <div class="form-group">
+          <label for="age">年龄</label>
+          <input type="number" class="form-control" id="age" th:field="*{age}" required min="15" max="30"
+            placeholder="请输入年龄">
+        </div>
+
+        <div class="form-group">
+          <label>性别</label>
+          <div>
+            <label style="display: inline-block; margin-right: 20px;">
+              <input type="radio" th:field="*{gender}" value="男" checked> 男
+            </label>
+            <label style="display: inline-block;">
+              <input type="radio" th:field="*{gender}" value="女"> 女
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="grade">年级</label>
+          <select class="form-control" id="grade" th:field="*{grade}">
+            <option value="2020级">2020级</option>
+            <option value="2021级">2021级</option>
+            <option value="2022级">2022级</option>
+            <option value="2023级">2023级</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="score">成绩</label>
+          <input type="number" class="form-control" id="score" th:field="*{score}" required min="0" max="100"
+            placeholder="请输入成绩">
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-success">保存</button>
+          <a th:href="@{/student/list}" class="btn btn-danger">取消</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>前后端数据传递测试</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <style>
+    body {
+      font-family: 'Microsoft YaHei', sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+
+    .method-box {
+      background-color: white;
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .method-box h2 {
+      margin-top: 0;
+      color: #2c3e50;
+      font-size: 1.2em;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #666;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+      transform: translateY(-1px);
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    pre {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 4px;
+      border: 1px solid #e9ecef;
+      margin-top: 10px;
+      overflow-x: auto;
+    }
+
+    .error {
+      color: #dc3545;
+      margin-top: 5px;
+      display: none;
+      padding: 10px;
+      background-color: #fff3f3;
+      border-radius: 4px;
+    }
+
+    .success {
+      color: #28a745;
+      margin-top: 5px;
+      display: none;
+      padding: 10px;
+      background-color: #f3fff3;
+      border-radius: 4px;
+    }
+
+    .loading {
+      display: none;
+      margin-left: 10px;
+      color: #666;
+    }
+
+    .method-description {
+      color: #666;
+      margin-bottom: 15px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>前后端数据传递测试</h1>
+
+    <!-- 方法1：直接在方法形参中接收参数 -->
+    <div class="method-box">
+      <h2>方法1：直接在方法形参中接收参数</h2>
+      <div class="method-description">
+        通过URL参数直接传递数据，适用于简单的GET请求
+      </div>
+      <form onsubmit="testMethod1(event)">
+        <div class="form-group">
+          <label for="username1">用户名：</label>
+          <input type="text" id="username1" name="username" required placeholder="请输入用户名">
+        </div>
+        <div class="form-group">
+          <label for="password1">密码：</label>
+          <input type="password" id="password1" name="password" required placeholder="请输入密码">
+        </div>
+        <button type="submit">测试方法1</button>
+        <span class="loading" id="loading1">请求中...</span>
+      </form>
+      <pre id="result1"></pre>
+      <div id="error1" class="error"></div>
+      <div id="success1" class="success"></div>
+    </div>
+
+    <!-- 方法2：通过实体类接收参数 -->
+    <div class="method-box">
+      <h2>方法2：通过实体类接收参数</h2>
+      <div class="method-description">
+        通过JSON格式传递复杂对象数据，适用于POST请求
+      </div>
+      <form onsubmit="testMethod2(event)">
+        <div class="form-group">
+          <label for="username2">用户名：</label>
+          <input type="text" id="username2" required placeholder="请输入用户名">
+        </div>
+        <div class="form-group">
+          <label for="password2">密码：</label>
+          <input type="password" id="password2" required placeholder="请输入密码">
+        </div>
+        <div class="form-group">
+          <label for="age2">年龄：</label>
+          <input type="number" id="age2" required placeholder="请输入年龄">
+        </div>
+        <button type="submit">测试方法2</button>
+        <span class="loading" id="loading2">请求中...</span>
+      </form>
+      <pre id="result2"></pre>
+      <div id="error2" class="error"></div>
+      <div id="success2" class="success"></div>
+    </div>
+
+    <!-- 方法3：通过HttpServletRequest接收参数 -->
+    <div class="method-box">
+      <h2>方法3：通过HttpServletRequest接收参数</h2>
+      <div class="method-description">
+        服务器端通过Request对象获取参数，适用于表单提交
+      </div>
+      <form onsubmit="testMethod3(event)">
+        <div class="form-group">
+          <label for="username3">用户名：</label>
+          <input type="text" id="username3" required placeholder="请输入用户名">
+        </div>
+        <div class="form-group">
+          <label for="password3">密码：</label>
+          <input type="password" id="password3" required placeholder="请输入密码">
+        </div>
+        <button type="submit">测试方法3</button>
+        <span class="loading" id="loading3">请求中...</span>
+      </form>
+      <pre id="result3"></pre>
+      <div id="error3" class="error"></div>
+      <div id="success3" class="success"></div>
+    </div>
+
+    <!-- 方法4：通过@PathVariable获取REST风格参数 -->
+    <div class="method-box">
+      <h2>方法4：通过@PathVariable获取REST风格参数</h2>
+      <div class="method-description">
+        REST风格的URL参数传递，适用于资源标识
+      </div>
+      <form onsubmit="testMethod4(event)">
+        <div class="form-group">
+          <label for="id4">资源ID：</label>
+          <input type="text" id="id4" required placeholder="请输入资源ID">
+        </div>
+        <button type="submit">测试方法4</button>
+        <span class="loading" id="loading4">请求中...</span>
+      </form>
+      <pre id="result4"></pre>
+      <div id="error4" class="error"></div>
+      <div id="success4" class="success"></div>
+    </div>
+
+    <!-- 方法5：通过@RequestParam绑定请求参数 -->
+    <div class="method-box">
+      <h2>方法5：通过@RequestParam绑定请求参数</h2>
+      <div class="method-description">
+        明确的参数绑定方式，适用于必填参数校验
+      </div>
+      <form onsubmit="testMethod5(event)">
+        <div class="form-group">
+          <label for="username5">用户名：</label>
+          <input type="text" id="username5" required placeholder="请输入用户名">
+        </div>
+        <div class="form-group">
+          <label for="password5">密码：</label>
+          <input type="password" id="password5" required placeholder="请输入密码">
+        </div>
+        <button type="submit">测试方法5</button>
+        <span class="loading" id="loading5">请求中...</span>
+      </form>
+      <pre id="result5"></pre>
+      <div id="error5" class="error"></div>
+      <div id="success5" class="success"></div>
+    </div>
+
+    <!-- 方法6：组合使用多种参数接收方式 -->
+    <div class="method-box">
+      <h2>方法6：组合使用多种参数接收方式</h2>
+      <div class="method-description">
+        综合演示多种参数传递方式的组合使用
+      </div>
+      <form onsubmit="testMethod6(event)">
+        <div class="form-group">
+          <label for="id6">资源ID：</label>
+          <input type="text" id="id6" required placeholder="请输入资源ID">
+        </div>
+        <div class="form-group">
+          <label for="username6">用户名：</label>
+          <input type="text" id="username6" required placeholder="请输入用户名">
+        </div>
+        <div class="form-group">
+          <label for="password6">密码：</label>
+          <input type="password" id="password6" required placeholder="请输入密码">
+        </div>
+        <div class="form-group">
+          <label for="age6">年龄：</label>
+          <input type="number" id="age6" required placeholder="请输入年龄">
+        </div>
+        <div class="form-group">
+          <label for="extra6">额外信息：</label>
+          <input type="text" id="extra6" placeholder="请输入额外信息（选填）">
+        </div>
+        <button type="submit">测试方法6</button>
+        <span class="loading" id="loading6">请求中...</span>
+      </form>
+      <pre id="result6"></pre>
+      <div id="error6" class="error"></div>
+      <div id="success6" class="success"></div>
+    </div>
+  </div>
+
+  <script>
+    function showLoading(id) {
+      $(`#loading${id}`).show();
+    }
+
+    function hideLoading(id) {
+      $(`#loading${id}`).hide();
+    }
+
+    function showError(id, message) {
+      $(`#error${id}`).text(message).show();
+      $(`#success${id}`).hide();
+      setTimeout(() => $(`#error${id}`).hide(), 3000);
+    }
+
+    function showSuccess(id, message) {
+      $(`#success${id}`).text(message).show();
+      $(`#error${id}`).hide();
+      setTimeout(() => $(`#success${id}`).hide(), 3000);
+    }
+
+    function clearResult(id) {
+      $(`#result${id}`).text('');
+      $(`#error${id}`).hide();
+      $(`#success${id}`).hide();
+    }
+
+    // 方法1：直接在方法形参中接收参数
+    function testMethod1(event) {
+      event.preventDefault();
+      clearResult(1);
+      showLoading(1);
+
+      $.get('/api/method1', {
+        username: $('#username1').val(),
+        password: $('#password1').val()
+      })
+        .done(data => {
+          $('#result1').text(JSON.stringify(data, null, 2));
+          showSuccess(1, '请求成功！');
+        })
+        .fail(err => showError(1, '请求失败：' + err.statusText))
+        .always(() => hideLoading(1));
+    }
+
+    // 方法2：通过实体类接收参数
+    function testMethod2(event) {
+      event.preventDefault();
+      clearResult(2);
+      showLoading(2);
+
+      $.ajax({
+        url: '/api/method2',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+          username: $('#username2').val(),
+          password: $('#password2').val(),
+          age: parseInt($('#age2').val())
+        })
+      })
+        .done(data => {
+          $('#result2').text(JSON.stringify(data, null, 2));
+          showSuccess(2, '请求成功！');
+        })
+        .fail(err => showError(2, '请求失败：' + err.statusText))
+        .always(() => hideLoading(2));
+    }
+
+    // 方法3：通过HttpServletRequest接收参数
+    function testMethod3(event) {
+      event.preventDefault();
+      clearResult(3);
+      showLoading(3);
+
+      $.post('/api/method3', {
+        username: $('#username3').val(),
+        password: $('#password3').val()
+      })
+        .done(data => {
+          $('#result3').text(JSON.stringify(data, null, 2));
+          showSuccess(3, '请求成功！');
+        })
+        .fail(err => showError(3, '请求失败：' + err.statusText))
+        .always(() => hideLoading(3));
+    }
+
+    // 方法4：通过@PathVariable获取REST风格参数
+    function testMethod4(event) {
+      event.preventDefault();
+      clearResult(4);
+      showLoading(4);
+
+      $.get(`/api/method4/${$('#id4').val()}`)
+        .done(data => {
+          $('#result4').text(JSON.stringify(data, null, 2));
+          showSuccess(4, '请求成功！');
+        })
+        .fail(err => showError(4, '请求失败：' + err.statusText))
+        .always(() => hideLoading(4));
+    }
+
+    // 方法5：通过@RequestParam绑定请求参数
+    function testMethod5(event) {
+      event.preventDefault();
+      clearResult(5);
+      showLoading(5);
+
+      $.get('/api/method5', {
+        username: $('#username5').val(),
+        password: $('#password5').val()
+      })
+        .done(data => {
+          $('#result5').text(JSON.stringify(data, null, 2));
+          showSuccess(5, '请求成功！');
+        })
+        .fail(err => showError(5, '请求失败：' + err.statusText))
+        .always(() => hideLoading(5));
+    }
+
+    // 方法6：组合使用多种参数接收方式
+    function testMethod6(event) {
+      event.preventDefault();
+      clearResult(6);
+      showLoading(6);
+
+      const id = $('#id6').val();
+      const extra = $('#extra6').val();
+
+      $.ajax({
+        url: `/api/method6/${id}${extra ? `?extra=${extra}` : ''}`,
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+          username: $('#username6').val(),
+          password: $('#password6').val(),
+          age: parseInt($('#age6').val())
+        })
+      })
+        .done(data => {
+          $('#result6').text(JSON.stringify(data, null, 2));
+          showSuccess(6, '请求成功！');
+        })
+        .fail(err => showError(6, '请求失败：' + err.statusText))
+        .always(() => hideLoading(6));
+    }
+  </script>
+</body>
+
+</html>

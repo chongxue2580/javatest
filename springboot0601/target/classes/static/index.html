@@ -1,0 +1,158 @@
+<script type="text/javascript">
+    var gk_fileData = {};
+    function loadFileData(filename) {
+      return gk_fileData[filename] || "";
+    }
+    </script><!DOCTYPE html>
+<html>
+<head>
+    <title>Test Controller Methods</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h2>Test Controller Methods</h2>
+
+    <!-- Method 1: 直接参数 -->
+    <div>
+        <h3>Method 1: Direct Parameters</h3>
+        <input type="text" id="name1" placeholder="Name">
+        <input type="number" id="age1" placeholder="Age">
+        <button onclick="testMethod1('GET')">GET</button>
+        <button onclick="testMethod1('POST')">POST</button>
+        <div id="result1"></div>
+    </div>
+
+    <!-- Method 2: 实体类参数 -->
+    <div>
+        <h3>Method 2: Entity Class</h3>
+        <input type="text" id="name2" placeholder="Name">
+        <input type="number" id="age2" placeholder="Age">
+        <button onclick="testMethod2('GET')">GET</button>
+        <button onclick="testMethod2('POST')">POST</button>
+        <div id="result2"></div>
+    </div>
+
+    <!-- Method 3: HttpServletRequest -->
+    <div>
+        <h3>Method 3: HttpServletRequest</h3>
+        <input type="text" id="name3" placeholder="Name">
+        <input type="number" id="age3" placeholder="Age">
+        <button onclick="testMethod3('GET')">GET</button>
+        <button onclick="testMethod3('POST')">POST</button>
+        <div id="result3"></div>
+    </div>
+
+    <!-- Method 4: PathVariable -->
+    <div>
+        <h3>Method 4: PathVariable</h3>
+        <input type="text" id="name4" placeholder="Name">
+        <input type="number" id="age4" placeholder="Age">
+        <button onclick="testMethod4()">GET</button>
+        <div id="result4"></div>
+    </div>
+
+    <!-- Method 5: RequestParam -->
+    <div>
+        <h3>Method 5: RequestParam</h3>
+        <input type="text" id="name5" placeholder="Name">
+        <input type="number" id="age5" placeholder="Age">
+        <button onclick="testMethod5('GET')">GET</button>
+        <button onclick="testMethod5('POST')">POST</button>
+        <div id="result5"></div>
+    </div>
+
+    <!-- Method 6: RequestBody -->
+    <div>
+        <h3>Method 6: RequestBody</h3>
+        <input type="text" id="name6" placeholder="Name">
+        <input type="number" id="age6" placeholder="Age">
+        <button onclick="testMethod6()">POST</button>
+        <div id="result6"></div>
+    </div>
+
+    <script>
+        function testMethod1(method) {
+            const name = $('#name1').val();
+            const age = $('#age1').val();
+            const data = { name: name, age: age };
+            $.ajax({
+                url: '/api/user/method1',
+                type: method,
+                data: data,
+                success: function(response) {
+                    $('#result1').text(response);
+                }
+            });
+        }
+
+        function testMethod2(method) {
+            const name = $('#name2').val();
+            const age = $('#age2').val();
+            const data = { name: name, age: age };
+            $.ajax({
+                url: '/api/user/method2',
+                type: method,
+                data: data,
+                success: function(response) {
+                    $('#result2').text(response);
+                }
+            });
+        }
+
+        function testMethod3(method) {
+            const name = $('#name3').val();
+            const age = $('#age3').val();
+            const data = { name: name, age: age };
+            $.ajax({
+                url: '/api/user/method3',
+                type: method,
+                data: data,
+                success: function(response) {
+                    $('#result3').text(response);
+                }
+            });
+        }
+
+        function testMethod4() {
+            const name = $('#name4').val();
+            const age = $('#age4').val();
+            $.ajax({
+                url: `/api/user/method4/${name}/${age}`,
+                type: 'GET',
+                success: function(response) {
+                    $('#result4').text(response);
+                }
+            });
+        }
+
+        function testMethod5(method) {
+            const name = $('#name5').val();
+            const age = $('#age5').val();
+            const data = { name: name, age: age };
+            $.ajax({
+                url: '/api/user/method5',
+                type: method,
+                data: data,
+                success: function(response) {
+                    $('#result5').text(response);
+                }
+            });
+        }
+
+        function testMethod6() {
+            const name = $('#name6').val();
+            const age = $('#age6').val();
+            const data = { name: name, age: age };
+            $.ajax({
+                url: '/api/user/method6',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function(response) {
+                    $('#result6').text(response);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
