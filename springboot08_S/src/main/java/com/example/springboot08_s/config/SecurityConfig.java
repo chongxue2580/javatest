@@ -6,11 +6,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -72,6 +69,8 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    // 注释掉内存用户管理，使用数据库认证
+    /*
     @Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager(PasswordEncoder passwordEncoder) {
         UserDetails admin = User.builder()
@@ -88,4 +87,5 @@ public class SecurityConfig {
 
         return new InMemoryUserDetailsManager(admin, user);
     }
+    */
 } 

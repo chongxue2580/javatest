@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/SpringCloud/mybatisPlus/pom.xml" />
+        <option value="$PROJECT_DIR$/SpringCloud/springboot0602/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot02/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot03/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot04/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot05/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot06/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot07/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot0601/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot08_S/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="openjdk-22" project-jdk-type="JavaSDK" />
+</project>

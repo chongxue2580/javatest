@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="schedule-system" />
+        <module name="demo (1)" />
+        <module name="springboot08_S" />
+        <module name="mybatisPlus" />
+        <module name="springboot0601" />
+        <module name="springboot07" />
+        <module name="springboot05" />
+        <module name="demo" />
+        <module name="springboot03" />
+        <module name="springboot02" />
+      </profile>
+      <profile name="Annotation profile for springboot06" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$PROJECT_DIR$/../maven/apache-maven-3.6.1/mvn_repo/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+        </processorPath>
+        <module name="springboot06" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="11">
+      <module name="demo" target="1.8" />
+      <module name="demo (1)" target="11" />
+      <module name="mybatisPlus" target="17" />
+      <module name="schedule-system" target="1.8" />
+      <module name="springboot02" target="1.8" />
+      <module name="springboot03" target="17" />
+      <module name="springboot05" target="17" />
+      <module name="springboot06" target="17" />
+      <module name="springboot0601" target="17" />
+      <module name="springboot07" target="17" />
+      <module name="springboot08_S" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="demo (1)" options="-parameters" />
+      <module name="mybatisPlus" options="-parameters" />
+      <module name="schedule-system" options="-parameters" />
+      <module name="springboot03" options="-parameters" />
+      <module name="springboot05" options="-parameters" />
+      <module name="springboot06" options="-parameters" />
+      <module name="springboot0601" options="-parameters" />
+      <module name="springboot07" options="-parameters" />
+      <module name="springboot08_S" options="-parameters" />
+    </option>
+  </component>
+</project>
