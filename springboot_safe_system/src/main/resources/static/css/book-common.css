@@ -1,0 +1,96 @@
+/* 通用样式 */
+body {
+    font-family: "Microsoft YaHei", sans-serif;
+    background-color: #f8f9fa;
+    padding: 15px;
+}
+
+.box-body {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.table-box {
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+/* 按钮样式 */
+.btn-group {
+    margin-bottom: 15px;
+}
+
+.btn-default {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+}
+
+.btn-default:hover {
+    background-color: #218838;
+    color: white;
+}
+
+/* 表格样式 */
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    border-collapse: collapse;
+}
+
+.table th {
+    background-color: #f8f9fa;
+    color: #495057;
+    font-weight: 600;
+    padding: 12px;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table td {
+    padding: 12px;
+    vertical-align: middle;
+    border-top: 1px solid #dee2e6;
+}
+
+.table-bordered {
+    border: 1px solid #dee2e6;
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #dee2e6;
+}
+
+/* 操作按钮样式 */
+.bg-olive {
+    background-color: #3d9970 !important;
+    color: white;
+    border: none;
+    margin: 0 2px;
+}
+
+.bg-olive:hover {
+    background-color: #2d7a57 !important;
+    color: white;
+}
+
+.btn-xs {
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+/* 响应式优化 */
+@media (max-width: 768px) {
+    .table-responsive {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+    }
+} 

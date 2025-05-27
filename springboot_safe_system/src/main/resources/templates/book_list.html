@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>图书阅读</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/book-common.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<div class="box-body">
+    <h3 class="text-center mb-4">图书阅读列表</h3>
+    <div class="table-box table-responsive">
+        <!-- 数据表格 -->
+        <table id="dataList" class="table table-bordered text-center">
+            <thead>
+            <tr>
+                <th>图书名称</th>
+                <th>图书作者</th>
+                <th>出版社</th>
+                <th>价格</th>
+                <th>库存</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="book : ${books}">
+                    <td th:text="${book.name}">图书名称</td>
+                    <td th:text="${book.author}">作者</td>
+                    <td th:text="${book.publisher}">出版社</td>
+                    <td th:text="${#numbers.formatDecimal(book.price, 1, 2)}">价格</td>
+                    <td th:text="${book.stock}">库存</td>
+                    <td class="text-center">
+                        <button type="button" class="btn bg-olive btn-xs" th:attr="data-id=${book.id}" onclick="showBookDetails(this)">
+                            <i class="fa fa-book"></i> 阅读
+                        </button>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(books)}">
+                    <td colspan="6" class="text-center">暂无图书数据</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- 图书详情模态框 -->
+<div class="modal fade" id="bookDetailModal" tabindex="-1" role="dialog" aria-labelledby="bookDetailModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="bookDetailModalLabel">图书详情</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="bookDetailContent">
+                <!-- 图书详情内容 -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.js}"></script>
+<script>
+    function showBookDetails(btn) {
+        var bookId = $(btn).data('id');
+        // 这里可以通过AJAX请求获取图书详情
+        // 简化处理，直接显示模态框
+        $('#bookDetailContent').html('正在加载图书详情...');
+        $('#bookDetailModal').modal('show');
+        
+        // 模拟AJAX请求
+        setTimeout(function() {
+            var bookName = $(btn).closest('tr').find('td:first').text();
+            var author = $(btn).closest('tr').find('td:eq(1)').text();
+            var publisher = $(btn).closest('tr').find('td:eq(2)').text();
+            
+            var content = '<div class="book-detail">' +
+                '<h5>' + bookName + '</h5>' +
+                '<p><strong>作者：</strong>' + author + '</p>' +
+                '<p><strong>出版社：</strong>' + publisher + '</p>' +
+                '<p><strong>简介：</strong>这是一本很好的书，内容丰富，讲解清晰，适合各类读者阅读学习。</p>' +
+                '</div>';
+                
+            $('#bookDetailContent').html(content);
+        }, 500);
+    }
+</script>
+</body>
+</html>

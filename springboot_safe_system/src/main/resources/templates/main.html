@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>网上图书馆</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" th:href="@{/css/AdminLTE.css}">
+    <link rel="stylesheet" th:href="@{/css/_all-skins.min.css}">
+    <!-- jQuery -->
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <!-- Bootstrap -->
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <script type="text/javascript">
+        function SetIFrameHeight() {
+            var iframeid = document.getElementById("iframe");
+            if (document.getElementById) {
+                iframeid.height = document.documentElement.clientHeight;
+            }
+        }
+    </script>
+</head>
+
+<body class="hold-transition skin-green sidebar-mini">
+<div class="wrapper">
+    <!-- 页面头部 -->
+    <header class="main-header">
+        <!-- Logo -->
+        <a th:href="@{/}" class="logo">
+            <span class="logo-lg"><b>网上图书馆</b></span>
+        </a>
+        <!-- 头部导航 -->
+        <nav class="navbar navbar-static-top">
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        <a>
+                            <img th:src="@{/img/user.jpg}" class="user-image" alt="User Image">
+                            <span class="hidden-xs" th:text="${session.user != null ? session.user.name : '当前用户'}">当前用户</span>
+                        </a>
+                    </li>
+                    <li class="dropdown user user-menu">
+                        <a th:href="@{/logout}">
+                            <span class="hidden-xs">注销</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- 页面头部 /-->
+    <!-- 导航侧栏 -->
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul class="sidebar-menu">
+                <li sec:authorize="hasAnyAuthority('ROLE_COMMON','ROLE_ADMIN')">
+                    <a th:href="@{/book/list}" target="iframe">
+                        <i class="fa fa-book"></i> <span>图书阅读</span>
+                    </a>
+                </li>
+                <li sec:authorize="hasAuthority('ROLE_ADMIN')">
+                    <a th:href="@{/book/admin/manag}" target="iframe">
+                        <i class="fa fa-cog"></i> <span>图书管理</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </aside>
+    <!-- 导航侧栏 /-->
+    <!-- 内容展示区域 -->
+    <div class="content-wrapper">
+        <iframe width="100%" id="iframe" name="iframe" onload="SetIFrameHeight()"
+                frameborder="0" th:src="@{/book/list}"></iframe>
+    </div>
+</div>
+</body>
+</html>

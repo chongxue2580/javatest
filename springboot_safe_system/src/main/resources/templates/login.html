@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>图书管理系统 - 登录</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<div class="loginmanage">
+    <div class="container">
+        <h2 class="manage-title">图书管理系统</h2>
+        <div class="loginform">
+            <h4 class="text-center mb-4">用户登录</h4>
+            <form id="loginform" th:action="@{/customLogin}" method="post">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="fa fa-user"></i></span>
+                    <input type="text" placeholder="请输入用户名" class="form-control" name="username" required>
+                </div>
+                <div class="input-prepend">
+                    <span class="add-on"><i class="fa fa-lock"></i></span>
+                    <input type="password" placeholder="请输入密码" class="form-control" name="password" required>
+                </div>
+                <div th:if="${param.error}" class="alert alert-danger">
+                    <i class="fa fa-exclamation-circle"></i> 用户名或密码错误
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-login">登 录</button>
+                </div>
+                <div class="text-center mt-3">
+                    <small class="text-muted">用户名: zhangsan / 密码: 1234</small>
+                    <br>
+                    <small class="text-muted">用户名: lisi / 密码: 1234 (管理员)</small>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.js}"></script>
+</body>
+</html>
