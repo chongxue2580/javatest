@@ -4,7 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8e7bf9b-4e73-4c1d-a7c9-dc486b7cd1fc" name="更改" comment="完善" />
+    <list default="true" id="f8e7bf9b-4e73-4c1d-a7c9-dc486b7cd1fc" name="更改" comment="完善">
+      <change afterPath="$PROJECT_DIR$/springboot_jwt/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot_jwt/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot_jwt/src/main/java/com/example/springboot_jwt/SpringbootJwtApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot_jwt/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot_jwt/src/test/java/com/example/springboot_jwt/SpringbootJwtApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blog_Froum/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blog_Froum/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blog_Froum/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blog_Froum/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blog_Froum/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blog_Froum/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blog_Froum/src/main/java/com/example/blog_froum/BlogFroumApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blog_Froum/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blog_Froum/src/test/java/com/example/blog_froum/BlogFroumApplicationTests.java" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -130,6 +147,9 @@
       <workItem from="1747746162633" duration="29000" />
       <workItem from="1747748186310" duration="96000" />
       <workItem from="1747899566458" duration="5000" />
+      <workItem from="1749373090258" duration="3701000" />
+      <workItem from="1749568018694" duration="58000" />
+      <workItem from="1750038630112" duration="60000" />
     </task>
     <task id="LOCAL-00001" summary="完善">
       <created>1747748250082</created>
