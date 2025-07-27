@@ -1,6 +1,8 @@
 package com.xp.consultant.config;
 
 import com.xp.consultant.service.Consultantservice;
+import dev.langchain4j.memory.ChatMemory;
+import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.openai.OpenAiChatModel;
 import dev.langchain4j.service.AiServices;
 import dev.langchain4j.service.spring.AiService;
@@ -32,6 +34,12 @@ public class CommonConfig {
     public interface Consultantservice {
         String chat(String message);
     }
-
+    @Bean
+    public ChatMemory chatMemory(){
+    MessageWindowChatMemory memory = MessageWindowChatMemory.builder()
+            .maxMessages(20)
+            .build();
+    return memory;
+}
 
 }
