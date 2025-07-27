@@ -6,6 +6,13 @@ langchain4j:
       model-name: Qwen/Qwen3-Coder-480B-A35B-Instruct
       log-requests: true
       log-responses: true
+    streaming-chat-model:
+      base-url: https://api-inference.modelscope.cn/v1
+      api-key: ${API-KEY}
+      model-name: Qwen/Qwen3-Coder-480B-A35B-Instruct
+      log-requests: true
+      log-responses: true
+
 logging:
   level:
     dev.lanchain4j: debug

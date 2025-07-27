@@ -1,21 +1,31 @@
 package com.xp.consultant.controller;
 
 import com.xp.consultant.service.Consultantservice;
-import dev.langchain4j.model.chat.ChatModel;
-import dev.langchain4j.model.openai.OpenAiChatModel;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 
 @RestController
 public class ChatController {
     @Autowired
     private Consultantservice consultantService;
-    @RequestMapping("/chat")
-    public String chat(String message) {
-        return consultantService.chat(message);
+
+    @RequestMapping(value = "/chat",produces="text/html;charset=utf-8")
+    public Flux<String> chat(String message) {
+        Flux<String> result = consultantService.chat(message);
+        return result;
     }
-    }
+
+}
+
+//    @RequestMapping("/chat")
+//    public String chat(String message) {
+//
+//        return consultantService.chat(message);
+//    }
+
 
 
 
