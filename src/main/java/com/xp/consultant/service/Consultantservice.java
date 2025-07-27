@@ -1,9 +1,9 @@
 package com.xp.consultant.service;
 
 
+import dev.langchain4j.service.MemoryId;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
-import dev.langchain4j.service.V;
 import dev.langchain4j.service.spring.AiService;
 import dev.langchain4j.service.spring.AiServiceWiringMode;
 import reactor.core.publisher.Flux;
@@ -16,7 +16,9 @@ import reactor.core.publisher.Flux;
             wiringMode = AiServiceWiringMode.EXPLICIT, //手动装配
             chatModel = "openAiChatModel",
             streamingChatModel = "openAiStreamingChatModel",
-        chatMemory = "chatMemory"
+            chatMemory = "chatMemory",
+            chatMemoryProvider = "chatMemoryProvider",
+            contentRetriever = "contentRetriever"//配置向量数据库检索对象
     )
 
 public interface Consultantservice {
@@ -25,7 +27,6 @@ public interface Consultantservice {
     @SystemMessage(fromResource="system.txt")
 //@UserMessage("你是智能小助手{{it}}")
 //    @UserMessage("你是智能小助手{{msg}}")
-
-    public Flux<String> chat (String message);
+    public Flux<String> chat (@MemoryId String memoryId, @UserMessage String message);
 
 }
